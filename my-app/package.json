@@ -17,5 +17,9 @@
   "devDependencies": {
     "@babel/core": "^7.20.0"
   },
-  "private": true
+  "private": true,
+  "description": "// create expo app expo init name-of-app // change directory cd name-of-app // install node modules/dependencies npm install // start app npm start",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
