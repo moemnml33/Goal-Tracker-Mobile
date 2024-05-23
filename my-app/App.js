@@ -1,52 +1,31 @@
 // import { StatusBar } from 'expo-status-bar';
 import { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
+import GoalItem from "./components/GoalItem";
+import GoalInput from "./components/GoalInput";
 
 export default function App() {
-  // useState to save input
-  const [enteredGoalText, setEnteredGoalText] = useState("");
   // useState to save the list of added goals
   const [courseGoals, setCourseGoals] = useState([]);
-  // set entered text
-  function goalInputHandler(enteredText) {
-    setEnteredGoalText(enteredText);
-  }
+
   // add goal button functionality
-  function addGoalHandler() {
+  function addGoalHandler(enteredGoalText) {
     // arrow function that creates a new list made of the old list destructured and a new element appended at tail
     setCourseGoals((currentCourseGoals) => [
       ...currentCourseGoals,
       { text: enteredGoalText, id: Math.random().toString() },
     ]);
   }
+
   return (
     // view is equivalent to HTML div - View holds components but is not able to render text
     <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Your Course Goal"
-          onChangeText={goalInputHandler}
-        />
-        <Button title="Add Goal" onPress={addGoalHandler} />
-      </View>
+      <GoalInput onAddGoal={addGoalHandler} />
       <View style={styles.goalsContainer}>
         <FlatList
           data={courseGoals}
           renderItem={(itemData) => {
-            return (
-              <View style={styles.goalItem}>
-                <Text style={styles.goalText}>{itemData.item.text}</Text>
-              </View>
-            );
+            return <GoalItem text={itemData.item.text} />;
           }}
           keyExtractor={(item) => {
             return item.id;
@@ -63,36 +42,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingHorizontal: 15,
   },
-  inputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    // main axis
-    justifyContent: "space-between",
-    // cross axis
-    alignItems: "center",
-    marginBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: "black",
-  },
-  textInput: {
-    width: "75%",
-    borderWidth: 1,
-    borderRadius: 10,
-    marginRight: "2%",
-    padding: "3%",
-  },
   goalsContainer: {
     flex: 5,
-  },
-  goalItem: {
-    margin: 8,
-    padding: 12,
-    borderRadius: 8,
-    backgroundColor: "#000fff",
-  },
-  goalText: {
-    color: "white",
-    fontSize: 15,
-    fontWeight: "bold",
   },
 });
