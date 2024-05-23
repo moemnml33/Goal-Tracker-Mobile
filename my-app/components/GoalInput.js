@@ -14,6 +14,7 @@ export default function GoalInput({ onAddGoal }) {
   //     onAddGoal(enteredGoalText);
   //     setEnteredGoalText(""); // reset text after added
   //   }
+
   return (
     <View style={styles.inputContainer}>
       <TextInput
